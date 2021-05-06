@@ -8,6 +8,17 @@ vector<vector<int>> merge(vector<vector<int>> &intervals)
     };
     sort(intervals.begin(), intervals.end(), comp);
 
+
+    cout << "Elements in vectors after sorting:\n";
+    for (int i = 0; i < intervals.size(); i++)
+    {
+        for (int j = 0; j < intervals[i].size(); j++)
+        {
+            cout << intervals[i][j] << " ";
+        }
+        cout << endl;
+    }
+
     vector<int> now = intervals[0];
     vector<vector<int>> result;
     for (int i = 1; i < intervals.size(); i++)
