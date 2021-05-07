@@ -8,17 +8,6 @@ vector<vector<int>> merge(vector<vector<int>> &intervals)
     };
     sort(intervals.begin(), intervals.end(), comp);
 
-
-    cout << "Elements in vectors after sorting:\n";
-    for (int i = 0; i < intervals.size(); i++)
-    {
-        for (int j = 0; j < intervals[i].size(); j++)
-        {
-            cout << intervals[i][j] << " ";
-        }
-        cout << endl;
-    }
-
     vector<int> now = intervals[0];
     vector<vector<int>> result;
     for (int i = 1; i < intervals.size(); i++)
@@ -36,82 +25,7 @@ vector<vector<int>> merge(vector<vector<int>> &intervals)
     }
     result.push_back(now);
     return result;
-    // vector<vector<int>> ecp;
-    // vector<int> rows;
-
-    // if (intervals.size() == 1)
-    // {
-    //     return intervals;
-    // }
-
-    // int previousIntervalLeft = 0;
-    // int previousIntervalRight = 0;
-    // int nextIntervalLeft = 0;
-    // int nextIntervalRight = 0;
-
-    // for (int i = 1; i < intervals.size(); i++)
-    // {
-    //     for (int j = intervals[i].size() - 1; j < intervals[i].size(); j++)
-    //     {
-
-    //         previousIntervalLeft = intervals[i - 1][j - 1];
-    //         previousIntervalRight = intervals[i - 1][j];
-
-    //         nextIntervalLeft = intervals[i][j - 1];
-    //         nextIntervalRight = intervals[i][j];
-
-    //         if (previousIntervalRight <= nextIntervalLeft && (previousIntervalRight == nextIntervalRight || (previousIntervalRight >= nextIntervalLeft && previousIntervalRight == nextIntervalRight)))
-    //         {
-    //             rows.clear();
-    //             rows.push_back(previousIntervalLeft);
-    //             rows.push_back(previousIntervalRight);
-    //             ecp.push_back(rows);
-    //         }
-    //         else if (nextIntervalLeft < previousIntervalLeft)
-    //         {
-
-    //             rows.clear();
-    //             rows.push_back(nextIntervalLeft);
-    //             rows.push_back(nextIntervalRight);
-    //             ecp.push_back(rows);
-    //         }
-    //         else if (previousIntervalRight >= nextIntervalLeft)
-    //         {
-
-    //             rows.clear();
-    //             rows.push_back(previousIntervalLeft);
-    //             rows.push_back(nextIntervalRight);
-    //             ecp.push_back(rows);
-    //         }
-    //         else
-    //         {
-
-    //             if (intervals.size() == 2)
-    //             {
-
-    //                 rows.clear();
-    //                 rows.push_back(previousIntervalLeft);
-    //                 rows.push_back(previousIntervalRight);
-    //                 ecp.push_back(rows);
-
-    //                 rows.clear();
-    //                 rows.push_back(nextIntervalLeft);
-    //                 rows.push_back(nextIntervalRight);
-    //                 ecp.push_back(rows);
-    //             }
-    //             else
-    //             {
-
-    //                 rows.clear();
-    //                 rows.push_back(nextIntervalLeft);
-    //                 rows.push_back(nextIntervalRight);
-    //                 ecp.push_back(rows);
-    //             }
-    //         }
-    //     }
-    // }
-
-    // return ecp;
+    
 }
 
 int main()
