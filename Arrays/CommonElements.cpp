@@ -100,7 +100,7 @@ int main()
     int B[] = {6, 7, 20, 80, 100};
     int C[] = {3, 4, 15, 20, 30, 70, 80, 120};
 
-    //findCommon(A, B, C, sizeof(A)/sizeof(A[0]), sizeof(B)/sizeof(B[0]), sizeof(C)/sizeof(C[0]));
+    
 
    vector<int> ce = commonElements(A, B, C, sizeof(A)/sizeof(A[0]), sizeof(B)/sizeof(B[0]), sizeof(C)/sizeof(C[0]));
 
