@@ -6,7 +6,14 @@
 	],
 	"settings": {
 		"files.associations": {
-			"iostream": "cpp"
+			"iostream": "cpp",
+			"array": "cpp",
+			"fstream": "cpp",
+			"shared_mutex": "cpp",
+			"sstream": "cpp",
+			"tuple": "cpp",
+			"ostream": "cpp",
+			"new": "cpp"
 		}
 	}
 }

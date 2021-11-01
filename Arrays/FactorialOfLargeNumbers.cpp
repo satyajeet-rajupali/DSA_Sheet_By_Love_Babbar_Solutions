@@ -38,14 +38,19 @@ vector<int> factorial(int n)
     result.push_back(1);
  
     // Apply simple factorial formula n! = 1 * 2 * 3 * 4...*n
-    for (int x=2; x<=n; x++)
+    for (int x=2; x<=n; x++){
         result = multiply(x, result);
+
+    }
+     cout<<"Size of: "<<result.size()<<"\n";
  
     
 
     reverse(result.begin(), result.end());
     return result;    
 }
+
+
  
 // This function multiplies x with the number
 // represented by res[].
@@ -62,6 +67,7 @@ vector<int> multiply(int x, vector<int> res)
     // One by one multiply n with individual digits of res[]
     for (int i=0; i<res.size(); i++)
     {
+    
         int prod = res[i] * x + carry;
  
         // Store last digit of 'prod' in res[] 
@@ -84,7 +90,7 @@ vector<int> multiply(int x, vector<int> res)
  
 int main()
 {
-    int x = 897;
+    int x =897;
     vector<int> ans = factorial(x);
     cout<<"Answer:\n";
     for(auto it = ans.begin(); it!=ans.end(); it++){
