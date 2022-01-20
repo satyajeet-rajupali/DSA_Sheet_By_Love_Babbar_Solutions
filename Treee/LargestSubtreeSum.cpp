@@ -34,10 +34,9 @@ public:
     ~BinaryTree();
     void createBinaryTree();
 
-    int ConvertToSumTree(TreeNode* root);
-
-    void predOrder(TreeNode* root);
-
+    int LargestSubtreeSum(TreeNode *root);
+    int LargestSubtreeSumCalculator(TreeNode *node, int &sum);
+    void PreOrderTraversal(TreeNode *root);
 };
 
 BinaryTree::BinaryTree(/* args */)
@@ -90,39 +89,54 @@ void BinaryTree::createBinaryTree()
         }
     }
 
-    cout<<"Traversal of the tree is: \n";
-    predOrder(root);
-    cout<<"\n";
-    ConvertToSumTree(root);
-    cout<<"Traversal of the resultant tree is: \n";
-    predOrder(root);
-
-    
+    cout << "Values in the tree:\n";
+    PreOrderTraversal(root);
+    cout << "\n";
+    cout << "Largest Sum of the Subtree: " << LargestSubtreeSum(root) << "\n";
 }
 
+int BinaryTree::LargestSubtreeSumCalculator(TreeNode *node, int &sum)
+{
 
-void BinaryTree::predOrder(TreeNode *root){
-    if(root){
-        cout<<root->value<<" ";
-        predOrder(root->left);
-        predOrder(root->right);
-    }
-}
-
-int BinaryTree::ConvertToSumTree(TreeNode *root){
-
-    if(!root){
+    if (!node)
+    {
         return 0;
     }
-    int old_val = root->value;
-    root->value = ConvertToSumTree(root->left)  + ConvertToSumTree(root->right);
-    return root->value + old_val;
+
+    int currentSum = node->value + LargestSubtreeSumCalculator(node->left, sum) + LargestSubtreeSumCalculator(node->right, sum);
+    sum = max(currentSum, sum);
+
+    return currentSum;
+}
+
+int BinaryTree::LargestSubtreeSum(TreeNode *root)
+{
+
+    if (!root)
+    {
+        return 0;
+    }
+
+    int sum = INT_MIN;
+    LargestSubtreeSumCalculator(root, sum);
+
+    return sum;
+}
+
+void BinaryTree::PreOrderTraversal(TreeNode *root)
+{
+    if (!root)
+    {
+        return;
+    }
+    cout << root->value << " ";
+    PreOrderTraversal(root->left);
+    PreOrderTraversal(root->right);
 }
 
 int main()
 {
     BinaryTree tree;
     tree.createBinaryTree();
-        
     return 0;
 }

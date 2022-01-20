@@ -33,6 +33,15 @@ public:
     BinaryTree(/* args */);
     ~BinaryTree();
     void createBinaryTree();
+
+    // Method-1  TC: O(N^2)
+    int isSumTree(TreeNode *root);
+    int sum(TreeNode *root);
+    void predOrder(TreeNode *root);
+
+    // Method-2 TC: O(N)
+    int isSumTree1(TreeNode *root);
+    int isLeaf(TreeNode *root);
 };
 
 BinaryTree::BinaryTree(/* args */)
@@ -85,12 +94,134 @@ void BinaryTree::createBinaryTree()
         }
     }
 
-    
+    if (isSumTree(root))
+    {
+        cout << "Sum Tree"
+             << "\n";
+    }
+    else
+    {
+        cout << "Not Sum Tree"
+             << "\n";
+    }
+}
+
+// Method-1 Implementation
+int BinaryTree::sum(TreeNode *root)
+{
+    if (!root)
+    {
+        return 0;
+    }
+
+    return sum(root->left) + root->value + sum(root->right);
+}
+
+void BinaryTree::predOrder(TreeNode *root){
+    if(root){
+        cout<<root->value<<" ";
+        predOrder(root->left);
+        predOrder(root->right);
+    }
+}
+
+int BinaryTree::isSumTree(TreeNode *root)
+{
+    int ls, rs;
+    if (!root || (!root->left && !root->right))
+    {
+        return 1;
+    }
+
+    ls = sum(root->left);
+    rs = sum(root->right);
+
+    if (root->value == ls + rs && isSumTree(root->left) && isSumTree(root->right))
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
+// Method-2 Implementation
+int BinaryTree::isLeaf(TreeNode *node){
+    if(!node){
+        return 0;
+    }
+
+    if(!node->left && !node->right){
+        return 1;
+    }
+    return 0;
+}
+
+int BinaryTree::isSumTree1(TreeNode *root){
+    int ls, rs;
+
+    if(root|| isLeaf(root)){
+        return 1;
+    }
+
+    if(isSumTree1(root->left) && isSumTree1(root->right)){
+        if(!root->left){
+            ls = 0;
+        } else if(isLeaf(root->left)){
+            ls = root->left->value;
+        } else {
+            ls = 2*root->left->value;
+        }
+
+        if(!root->right){
+            ls = 0;
+        } else if(isLeaf(root->right)){
+            ls = root->right->value;
+        } else {
+            ls = 2*root->right->value;
+        }
+
+        return root->value == ls + rs;
+    }
+
+    return 0;
 }
 
 int main()
 {
     BinaryTree tree;
-    tree.createBinaryTree();
+    // tree.createBinaryTree();
+    TreeNode *node = new TreeNode(44);
+    node->left = new TreeNode(9);
+    node->right = new TreeNode(13);
+    node->left->left = new TreeNode(4);
+    node->left->right = new TreeNode(5);
+    node->right->left = new TreeNode(7);
+    node->right->right = new TreeNode(6);
+
+    tree.predOrder(node);
+    cout<<"\n";
+
+    if (tree.isSumTree(node))
+    {
+        cout << "Sum Tree"
+             << "\n";
+    }
+    else
+    {
+        cout << "Not Sum Tree"
+             << "\n";
+    }
+
+    if (tree.isSumTree1(node))
+    {
+        cout << "Sum Tree"
+             << "\n";
+    }
+    else
+    {
+        cout << "Not Sum Tree"
+             << "\n";
+    }
+
     return 0;
 }
