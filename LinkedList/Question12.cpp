@@ -1,58 +1,21 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Node
+struct Node
 {
-public:
     int data;
-    Node *next;
+    struct Node *next;
 };
 
-class LinkedList
+Node *newNode(int data)
 {
-private:
-    Node *head;
-
-public:
-    LinkedList(int arr[], int size);
-    void display(Node *node);
-    Node *newNode(int data);
-    int lengthOfList(Node *node);
-
-    int middleNode(Node *node);
-};
-
-Node *LinkedList::newNode(int data)
-{
-    Node *temp = new Node;
-    temp->data = data;
-    temp->next = NULL;
-    return temp;
+    Node *t = new Node;
+    t->data = data;
+    t->next = NULL;
+    return t;
 }
 
-LinkedList::LinkedList(int arr[], int size)
-{
-
-    head = new Node;
-    head->data = arr[0];
-    head->next = NULL;
-
-    Node *temp, *last = head;
-
-    for (int i = 1; i < size; i++)
-    {
-        temp = new Node;
-        temp->data = arr[i];
-        temp->next = NULL;
-        last->next = temp;
-        last = last->next;
-    }
-
-    display(head);
-    cout << "Middle Element: " << middleNode(head) << "\n";
-}
-
-void LinkedList::display(Node *node)
+void display(Node *node)
 {
 
     cout << "Elements in the list:\n";
@@ -64,34 +27,92 @@ void LinkedList::display(Node *node)
     cout << "\n";
 }
 
-int LinkedList::lengthOfList(Node *node)
+void FindMiddle(Node *cur, Node **first, Node **second)
 {
 
-    int len = 0;
-    while (node)
+    Node *slow = cur;
+    Node *fast = cur->next;
+    while (fast)
     {
-        len++;
-        node = node->next;
+        fast = fast->next;
+        if (fast)
+        {
+            slow = slow->next;
+            fast = fast->next;
+        }
     }
-    return len;
+
+    *first = cur;
+    *second = slow->next;
+    slow->next = NULL;
 }
 
-int LinkedList::middleNode(Node *node)
+Node *MergeBoth(Node *first, Node *second)
 {
+    Node *ans = NULL;
 
-    int len = lengthOfList(node);
-    len = len / 2;
+    if (!first)
+        return second;
+    else if (!second)
+        return first;
 
-    while (len--)
+    if (first->data <= second->data)
     {
-        node = node->next;
+        ans = first;
+        ans->next = MergeBoth(first->next, second);
+    }
+    else
+    {
+        ans = second;
+        ans->next = MergeBoth(first, second->next);
     }
 
-    return node->data;
+    return ans;
+}
+
+void MergeSort(Node **head)
+{
+    Node *cur = *head;
+    Node *first, *second;
+
+    if (!cur || !cur->next)
+        return;
+
+    FindMiddle(cur, &first, &second);
+
+    MergeSort(&first);
+    MergeSort(&second);
+    *head = MergeBoth(first, second);
+}
+
+Node *MergeSorting(Node *head)
+{
+    MergeSort(&head);
+    return head;
+}
+
+Node *createList(int arr[], int n)
+{
+
+    Node *head = newNode(arr[0]);
+
+    Node *last = head;
+
+    for (int i = 1; i < n; i++)
+    {
+        last->next = newNode(arr[i]);
+        last = last->next;
+    }
+
+    return head;
 }
 
 int main()
 {
-    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    LinkedList ls = LinkedList(arr, sizeof(arr) / sizeof(arr[0]));
+    int arr[] = {4, 9, 1, 3, 2};
+    Node *head = createList(arr, sizeof(arr) / sizeof(arr[0]));
+    display(head);
+    Node *sortedList = MergeSorting(head);
+    display(sortedList);
+    return 0;
 }
