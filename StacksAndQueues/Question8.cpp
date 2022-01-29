@@ -1,22 +1,37 @@
-// #include <bits/stdc++.h>
-// using namespace std;
+#include <bits/stdc++.h>
+using namespace std;
 
-// vector<long long> nextLargerElement(vector<long long> arr, int n)
-// {
-//     // Your code here
-//     stack<int> stk;
-//     int i = 0;
-//     stk.push(arr[0]);
+// arr[] = [1 3 2 4]
 
+vector<long long> nextLargerElement(vector<long long> arr, int n)
+{
+    stack<long long> stk;
+    vector<long long> ans(n);
+    for (int i = n - 1; i >= 0; i--)
+    {
+        while (!stk.empty() && arr[i] >= stk.top())
+        {
+            stk.pop();
+        }
 
-//     while (!stk.empty() || i < n)
-//     {
-        
-//     }
-// }
+        ans[i] = stk.empty() ? -1 : stk.top();
+        stk.emplace(arr[i]);
+    }
 
-// int main()
-// {
+    return ans;
+}
 
-//     return 0;
-// }
+int main()
+{
+    vector<long long> vec = {6, 8, 0, 1, 3};
+
+    vector<long long> ans = nextLargerElement(vec, vec.size());
+
+    cout << "Answer:\n";
+    for (auto it = ans.begin(); it != ans.end(); it++)
+    {
+        cout << *it << " ";
+    }
+    cout << "\n";
+    return 0;
+}
