@@ -70,6 +70,8 @@ int lps(string s)
     {
         int j = pi[i - 1];
 
+        // Here, we are looking for the character s[i] in the string s, 
+        // if it is present in the string before i and i-1.
         while (j > 0 and s[i] != s[j])
             j = pi[j - 1];
 
