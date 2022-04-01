@@ -54,6 +54,7 @@ Node *createTree()
     return root;
 }
 
+// same as left view with the only difference of right node will be called firstly and then left node;
 void right_view_util(Node *root, int level, int &maxLevel)
 {
 
@@ -104,6 +105,7 @@ void right_view_using_levelordertraversal(Node *root)
         }
     }
 }
+
 int main()
 {
     Node *root = createTree();
@@ -111,12 +113,12 @@ int main()
     // cout << "Elements in the tree:\n";
     // preorder(root)
     cout << "Right View Using Recursion:\n";
-    right_view(root);
-    cout << "\n";
+    // right_view(root);
+    // cout << "\n";
 
-    cout << "Right View Using Level Order Traversal:\n";
-    right_view_using_levelordertraversal(root);
-    cout << "\n";
+    // cout << "Right View Using Level Order Traversal:\n";
+    // right_view_using_levelordertraversal(root);
+    // cout << "\n";
 
     return 0;
 }

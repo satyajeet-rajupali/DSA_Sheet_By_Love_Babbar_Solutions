@@ -54,17 +54,34 @@ Node *createTree()
     return root;
 }
 
-void left_view(Node *root, int cur_level, int &prev_level)
+void preorder(Node *t)
 {
-    if (root)
+    if (t)
     {
-        if (cur_level > prev_level)
-        {
-            cout << root->value << " ";
-            prev_level = cur_level;
-        }
-        left_view(root->left, cur_level + 1, prev_level);
-        left_view(root->right, cur_level + 1, prev_level);
+        cout << t->value << " ";
+        preorder(t->left);
+        preorder(t->right);
+    }
+}
+
+bool label = true;
+int isBalanced(Node *root)
+{
+    //  Your Code here
+    if (!root)
+        return 0;
+    else
+    {
+        int x = isBalanced(root->left);
+        int y = isBalanced(root->right);
+
+        if (abs(x - y) > 1)
+            label = false;
+
+        if (x > y)
+            return x + 1;
+        else
+            return y + 1;
     }
 }
 
@@ -72,12 +89,11 @@ int main()
 {
     Node *root = createTree();
 
-    // cout << "Elements in the tree:\n";
-    // preorder(root)
-    cout << "Left View of the Tree:\n";
-    int lv = 0;
-    left_view(root, 1, lv);
-    cout << "\n";
+    isBalanced(root);
+    if (label)
+        cout << "Tree is balanced\n";
+    else
+        cout << "Tree isn't balanced\n";
 
     return 0;
 }

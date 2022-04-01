@@ -85,6 +85,8 @@ void top_view_using_hd_map(Node *root)
 
         if (m.count(hd) == 0)
             m[hd] = root->value;
+        else
+            m[hd] = root->value;
 
         if (root->left)
         {
@@ -155,7 +157,7 @@ void top_view_using_stack_vector(Node *root)
             stk.push(p->value);
             l = hd;
         }
-        else if (r > hd)
+        else if (hd > r)
         {
             vec.push_back(p->value);
             r = hd;
@@ -179,6 +181,8 @@ void top_view_using_stack_vector(Node *root)
         cout << stk.top() << " ";
         stk.pop();
     }
+
+    cout << root->value << " ";
 
     for (auto it = vec.begin(); it != vec.end(); it++)
     {
