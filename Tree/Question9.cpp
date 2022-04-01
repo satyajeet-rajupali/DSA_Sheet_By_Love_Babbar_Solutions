@@ -54,31 +54,69 @@ Node *createTree()
     return root;
 }
 
-void right_view(Node *root)
+void right_view_util(Node *root, int level, int &maxLevel)
 {
 
-    if (root)
+    if (!root)
+        return;
+
+    if (maxLevel < level)
     {
-        if (root->left)
+        cout << root->value << " ";
+        maxLevel = level;
+    }
+
+    right_view_util(root->right, level + 1, maxLevel);
+    right_view_util(root->left, level + 1, maxLevel);
+}
+
+void right_view(Node *root)
+{
+    int max_level = 0;
+    right_view_util(root, 1, max_level);
+    return;
+}
+
+void right_view_using_levelordertraversal(Node *root)
+{
+    queue<Node *> q;
+    Node *p;
+
+    q.emplace(root);
+
+    while (!q.empty())
+    {
+        int n = q.size();
+
+        while (n--)
         {
-            cout << root->value << " ";
-            right_view(root->right);
-        }
-        else
-        {
-            cout << root->value << " ";
-            right_view(root->left);
+            p = q.front();
+            q.pop();
+
+            if (n == 0)
+                cout << p->value << " ";
+
+            if (p->left)
+                q.emplace(p->left);
+
+            if (p->right)
+                q.emplace(p->right);
         }
     }
 }
-
 int main()
 {
     Node *root = createTree();
 
     // cout << "Elements in the tree:\n";
     // preorder(root)
+    cout << "Right View Using Recursion:\n";
     right_view(root);
+    cout << "\n";
+
+    cout << "Right View Using Level Order Traversal:\n";
+    right_view_using_levelordertraversal(root);
+    cout << "\n";
 
     return 0;
 }
