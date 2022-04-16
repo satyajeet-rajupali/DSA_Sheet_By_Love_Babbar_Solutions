@@ -99,6 +99,23 @@ Node *mirro_tree(Node *root)
     return root;
 }
 
+Node *recur_mirror_tree(Node *root)
+{
+    if (!root)
+        return root;
+    Node *t = root->left;
+    root->left = root->right;
+    root->right = t;
+
+    if (root->left)
+        recur_mirror_tree(root->left);
+
+    if (root->right)
+        recur_mirror_tree(root->right);
+
+    return root;
+}
+
 int main()
 {
     Node *root = createTree();
@@ -107,7 +124,7 @@ int main()
     inorder(root);
     cout << "\n";
 
-    Node *rev_tree = mirro_tree(root);
+    Node *rev_tree = recur_mirror_tree(root);
 
     cout << "After Reversal:\n";
     cout << "Elements in the tree:\n";

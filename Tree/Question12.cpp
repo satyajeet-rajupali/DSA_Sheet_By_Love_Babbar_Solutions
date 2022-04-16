@@ -136,6 +136,7 @@ int main()
 {
     Node *root = createTree();
     zigZagTraversal(root);
+    randomTraversal(root);
 
     // cout << "Elements in the tree:\n";
     // preorder(root);

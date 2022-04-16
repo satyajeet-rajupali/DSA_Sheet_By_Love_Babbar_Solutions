@@ -85,8 +85,8 @@ void top_view_using_hd_map(Node *root)
 
         if (m.count(hd) == 0)
             m[hd] = root->value;
-        else
-            m[hd] = root->value;
+        // else
+        //     m[hd] = root->value;
 
         if (root->left)
         {
