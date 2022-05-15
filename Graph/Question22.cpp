@@ -36,16 +36,22 @@ void flloydWarshallAlgorithm(vector<vector<int>> &graph, int n)
 
 int main()
 {
-    vector<vector<int>> graph = {
-        // 0  1     2    3    4    5   6
-        {0, INF, INF, INF, INF, INF, INF},
-        {INF, 0, 1, INF, INF, 3, INF},
-        {INF, INF, 0, 2, 2, 1, INF},
-        {INF, INF, INF, 0, INF, 2, INF},
-        {INF, INF, INF, INF, 0, 3, 1},
-        {INF, INF, INF, INF, INF, 0, 2},
-        {INF, INF, INF, INF, INF, INF, 0}};
+    // vector<vector<int>> graph = {
+    //     // 0  1     2    3    4    5   6
+    //     {0, INF, INF, INF, INF, INF, INF},
+    //     {INF, 0, 1, INF, INF, 3, INF},
+    //     {INF, INF, 0, 2, 2, 1, INF},
+    //     {INF, INF, INF, 0, INF, 2, INF},
+    //     {INF, INF, INF, INF, 0, 3, 1},
+    //     {INF, INF, INF, INF, INF, 0, 2},
+    //     {INF, INF, INF, INF, INF, INF, 0}};
 
-    flloydWarshallAlgorithm(graph, 6);
+    vector<vector<int>> graph = {{0, INF, INF, INF, INF},
+                                 {INF, 0, 1, INF, INF},
+                                 {INF, INF, 0, -1, INF},
+                                 {INF, INF, INF, 0, -1},
+                                 {INF, -1, INF, INF, 0}};
+
+    flloydWarshallAlgorithm(graph, 4);
     return 0;
 }
