@@ -58,7 +58,7 @@ void BellmanFord::BellmanFordAlgorithm()
     {
         if (dist[it.u] + it.wt < dist[it.v])
         {
-            cout << "Negative Cycle Detected\n";
+            cout << "Negative weight Cycle Detected\n";
             check = 1;
             return;
         }
@@ -70,6 +70,45 @@ void BellmanFord::BellmanFordAlgorithm()
         for (int i = 0; i < V; i++)
             cout << i << "\t" << dist[i] << "\n";
     }
+}
+
+int isNegativeWeightCycle(int n, vector<vector<int>> edges)
+{
+    // Code here
+
+    vector<int> dist(n, 10000000);
+
+    dist[0] = 0;
+
+    for (int i = 1; i < n; i++)
+    {
+        for (auto it : edges)
+        {
+            int u = it[0];
+            int v = it[1];
+            int wt = it[2];
+
+            if (dist[u] + wt < dist[v])
+                dist[v] = dist[u] + wt;
+        }
+    }
+
+    int flag = 0;
+
+    for (auto it : edges)
+    {
+        int u = it[0];
+        int v = it[1];
+        int wt = it[2];
+
+        if (dist[u] + wt < dist[v])
+        {
+            flag = 1;
+            return flag;
+        }
+    }
+
+    return flag;
 }
 
 int main()

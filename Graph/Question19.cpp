@@ -1,33 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Kruskal
+class Prims
 {
 public:
     vector<int> key;
     vector<bool> mst;
     vector<int> parent;
 
-    Kruskal(int n);
+    Prims(int n);
     void addEdges(int u, int v, int wt, vector<pair<int, int>> adj[]);
-    void kruskal(int n, vector<pair<int, int>> adj[]); // Brute Force Approach
-    void kruskalOptimized(int n, vector<pair<int, int>> adj[]);
+    void prims(int n, vector<pair<int, int>> adj[]); // Brute Force Approach
+    void PrimsOptimized(int n, vector<pair<int, int>> adj[]);
 };
 
-Kruskal::Kruskal(int n)
+Prims::Prims(int n)
 {
     key = vector<int>(n + 1, INT_MAX);
     parent = vector<int>(n + 1, -1);
     mst = vector<bool>(n + 1, false);
 }
 
-void Kruskal::addEdges(int u, int v, int wt, vector<pair<int, int>> adj[])
+void Prims::addEdges(int u, int v, int wt, vector<pair<int, int>> adj[])
 {
     adj[u].push_back(make_pair(v, wt));
     adj[v].push_back(make_pair(u, wt));
 }
 
-void Kruskal::kruskal(int n, vector<pair<int, int>> adj[])
+void Prims::prims(int n, vector<pair<int, int>> adj[])
 {
     key[0] = 0;
     parent[0] = -1;
@@ -59,7 +59,7 @@ void Kruskal::kruskal(int n, vector<pair<int, int>> adj[])
         cout << parent[i] << "--" << i << "\n";
 }
 
-void Kruskal::kruskalOptimized(int n, vector<pair<int, int>> adj[])
+void Prims::PrimsOptimized(int n, vector<pair<int, int>> adj[])
 {
     key[0] = 0;
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
@@ -99,7 +99,7 @@ void Kruskal::kruskalOptimized(int n, vector<pair<int, int>> adj[])
 int main()
 {
     int n = 5;
-    Kruskal k(n);
+    Prims k(n);
     vector<pair<int, int>> adj[n];
     k.addEdges(0, 1, 2, adj);
     k.addEdges(0, 3, 6, adj);
@@ -108,7 +108,7 @@ int main()
     k.addEdges(1, 4, 5, adj);
     k.addEdges(2, 4, 7, adj);
 
-    Kruskal k1(n);
+    Prims k1(n);
     vector<pair<int, int>> adj1[n];
     k1.addEdges(0, 1, 2, adj1);
     k1.addEdges(0, 3, 6, adj1);
@@ -118,10 +118,10 @@ int main()
     k1.addEdges(2, 4, 7, adj1);
 
     cout << "Brute Force:\n";
-    k.kruskal(n, adj);
+    k.prims(n, adj);
     cout << "\n";
     cout << "Efficient Approach:\n";
-    k1.kruskalOptimized(n, adj1);
+    k1.PrimsOptimized(n, adj1);
 
     return 0;
 }
