@@ -1,18 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int kthSmallestElement(int arr[], int n, int k)
+int kthSmallestElement(int v[], int n, int k)
 {
-    priority_queue<int> maxH;
+    priority_queue<int> maxHeap;
 
     for (int i = 0; i < n; i++)
     {
-        maxH.push(arr[i]);
-        if (maxH.size() > k)
-            maxH.pop();
+        maxHeap.emplace(v[i]);
+        if (maxHeap.size() > k)
+            maxHeap.pop();
     }
 
-    return maxH.top();
+    return maxHeap.top();
 }
 
 int main()
@@ -20,8 +20,7 @@ int main()
     int arr[] = {7, 10, 4, 3, 20, 15};
     int n = sizeof(arr) / sizeof(arr[0]);
     int k = 4;
-
-    cout << "Kth Smallest element: " << kthSmallestElement(arr, n, k) << "\n";
+    cout << "Kth smallest Element: " << kthSmallestElement(arr, n, k) << "\n";
 
     return 0;
 }
